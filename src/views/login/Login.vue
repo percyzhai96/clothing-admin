@@ -20,7 +20,7 @@
     />
     <!-- 登录面板 -->
     <div class="login-box" @keyup.enter="submitForm">
-      <div class="login-box-title">后台管理系统</div>
+      <div class="login-box-title">🌸RUI-ADMIN</div>
       <div class="login-box-from">
         <el-form
           :model="loginForm"
@@ -74,7 +74,7 @@
               :loading="loading"
               style="width: 100%"
               @click.native="submitForm"
-              >立即登陆</el-button
+              >log on</el-button
             >
           </el-form-item>
         </el-form>
@@ -84,8 +84,8 @@
 </template>
 
 <script>
-import { showLoading } from "@/utils";
-import { mapActions } from "vuex";
+import { showLoading } from '@/utils'
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -93,81 +93,81 @@ export default {
       pwdShow: false,
       loginForm: {
         // 登陆表单
-        username: "",
-        password: "",
-        code: "",
-        codeSvg: "",
-        key: "",
+        username: '',
+        password: '',
+        code: '',
+        codeSvg: '',
+        key: '',
       },
       rules: {
         //登陆验证规则
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" },
+          { required: true, message: '请输入用户名', trigger: 'blur' },
           {
             min: 2,
             max: 18,
-            message: "长度在 2 到 18 个字符",
-            trigger: "blur",
+            message: '长度在 2 到 18 个字符',
+            trigger: 'blur',
           },
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { required: true, message: '请输入密码', trigger: 'blur' },
           {
             min: 6,
             max: 16,
-            message: "长度在 6 到 16 个字符",
-            trigger: "blur",
+            message: '长度在 6 到 16 个字符',
+            trigger: 'blur',
           },
         ],
       },
-    };
+    }
   },
   mounted() {
-    this.getCodeSvg();
+    this.getCodeSvg()
   },
   methods: {
-    ...mapActions("user", ["login","getLoginCaptcha"]),
+    ...mapActions('user', ['login', 'getLoginCaptcha']),
     submitForm() {
       this.$refs.loginForm.validate((valid) => {
         if (!valid) {
-          return false;
+          return false
         }
-        this.loading = true;
-        this._login();
-      });
+        this.loading = true
+        this._login()
+      })
     },
     getCodeSvg() {
-      showLoading("正在获取验证码");
+      showLoading('正在获取验证码')
       this.getLoginCaptcha().then((res) => {
-        this.loginForm.codeSvg = res.codeSvg || "";
-        this.loginForm.key = res.key || "";
-        this.loading = false;
-      });
+        this.loginForm.codeSvg = res.codeSvg || ''
+        this.loginForm.key = res.key || ''
+        this.loading = false
+      })
     },
     _login() {
       this.login(this.loginForm)
         .then((res) => {
-          this.loading = true;
+          this.loading = true
           this.$router
             .push({
-              path: this.$route.query.redirect || "/index",
+              path: this.$route.query.redirect || '/index',
             })
-            .catch((err) => {});
-          if (!res.data.userInfo.login_time) return false;
+            .catch((err) => {})
+          if (!res.data.userInfo.login_time) return false
           this.$notify({
-            title: "欢迎回来",
-            message: "上次登陆时间：" + res.data.userInfo.login_time,
+            title: '欢迎回来',
+            message: '上次登陆时间：' + res.data.userInfo.login_time,
             offset: 100,
-          });
+          })
         })
         .catch((error) => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "@/assets/css/login.scss";
+@import '@/assets/css/login.scss';
 </style>

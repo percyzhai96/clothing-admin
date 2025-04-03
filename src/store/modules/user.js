@@ -16,38 +16,38 @@ const mutations = {
     SAVE_AUTHEN_INFO: (state, data) => {
         setToken(data.token)
         saveUserInfo(data.userInfo)
-        state.token = data.token;
+        state.token = data.token
         state.userInfo = data.userInfo
     },
-    LOGOUT(state) {
-        removeToken();
-        state.userInfo = {};
-        state.token = '';
-        state.valid = false;
-        state.roles = null;
+    LOGOUT (state) {
+        removeToken()
+        state.userInfo = {}
+        state.token = ''
+        state.valid = false
+        state.roles = null
     },
     USER_ROLES: (state, data) => {
-        state.roles = data;
+        state.roles = data
     },
     SET_VALID: (state) => {
-        state.valid = true;
+        state.valid = true
     }
-};
+}
 
 const actions = {
     // 获取验证码
-    getLoginCaptcha() {
+    getLoginCaptcha () {
         return Request.get("/public/admin/captcha")
             .then(res => {
-                return Promise.resolve(res.data);
+                return Promise.resolve(res.data)
             })
             .catch(err => {
-                return Promise.reject(err);
-            });
+                return Promise.reject(err)
+            })
 
     },
     // 用户登录
-    login({ commit, dispatch }, userInfo) {
+    login ({ commit, dispatch }, userInfo) {
         const { username, password, code } = userInfo
         return new Promise((resolve, reject) => {
             Request({
@@ -56,7 +56,7 @@ const actions = {
                 data: { username: username.trim(), code: code.trim(), password: password.trim() }
             }).then(async res => {
                 // 保存状态
-                commit('SAVE_AUTHEN_INFO', res.data);
+                commit('SAVE_AUTHEN_INFO', res.data)
                 let menus = await dispatch('getUserRoles', res.data.userInfo.roleId)
                 resolve({ userInfo: res.data.userInfo, menus })
             }).catch(error => {
@@ -65,27 +65,27 @@ const actions = {
         })
     },
     // 重置令牌
-    resetToken({ commit,dispatch }) {
+    resetToken ({ commit, dispatch }) {
         return new Promise((resolve, reject) => {
-            dispatch('tagsView/delAllViews',null,{ root: true })
+            dispatch('tagsView/delAllViews', null, { root: true })
             Request({
                 url: '/public/admin/login/out',
                 method: 'get',
-            }).then(()=>{
+            }).then(() => {
                 commit('LOGOUT')
                 resolve()
-            }).catch(()=>{
+            }).catch(() => {
                 commit('LOGOUT')
                 resolve()
             })
         })
     },
     // 当前路由是否有效
-    setValid({ commit }) {
+    setValid ({ commit }) {
         commit('SET_VALID')
     },
     // 获取用户角色
-    getUserRoles({ commit }, id) {
+    getUserRoles ({ commit }, id) {
         return new Promise((resolve, reject) => {
             Request({
                 url: '/private/roles/one',
@@ -94,7 +94,7 @@ const actions = {
                     params: { id }
                 },
             }).then(res => {
-                commit("USER_ROLES", res.data);
+                commit("USER_ROLES", res.data)
                 resolve(res.data)
             }).catch(error => {
                 reject(error)

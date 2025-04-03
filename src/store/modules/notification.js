@@ -29,7 +29,7 @@ const getters = {
 }
 
 const mutations = {
-    SET_DATA_LIST(state, { name, data, id }) {
+    SET_DATA_LIST (state, { name, data, id }) {
         if (id) {
             state.dataList[name].list.forEach((item, i) => {
                 if (name == 'news') {
@@ -44,7 +44,7 @@ const mutations = {
             state.dataList[name].list = data || []
         }
     },
-    SET_DATA_LIST_ADD(state, { name, data }) {
+    SET_DATA_LIST_ADD (state, { name, data }) {
         state.dataList[name].list.forEach((item, i) => {
             if (name == 'news' && item.uuid == data.uuid) {
                 // 同一会话新消息添加
@@ -54,58 +54,58 @@ const mutations = {
         state.dataList[name].list.unshift(data)
         state.noticeBadge = true
     },
-    SET_NOTICE_BADGE(state) {
+    SET_NOTICE_BADGE (state) {
         state.noticeBadge = !!(state.dataList.notice.list.length || state.dataList.news.list.length || state.dataList.agency.list.length)
     }
 }
 const actions = {
     // 获取系统通知
-    getNotification({ commit }) {
+    getNotification ({ commit }) {
         return Request.post("/notification/list")
             .then(res => {
                 Object.keys(res.data).forEach(item => {
                     commit("SET_DATA_LIST", { name: item, data: res.data[item] })
-                });
+                })
                 commit("SET_NOTICE_BADGE")
-                return Promise.resolve(res);
+                return Promise.resolve(res)
             })
             .catch(err => {
-                return Promise.reject(err);
-            });
+                return Promise.reject(err)
+            })
     },
-    getList({ commit }, reqData) {
+    getList ({ commit }, reqData) {
         return Request.post("/notification/home/list", reqData)
             .then(res => {
-                return Promise.resolve(res.data);
+                return Promise.resolve(res.data)
             })
             .catch(err => {
-                return Promise.reject(err);
-            });
+                return Promise.reject(err)
+            })
     },
     // 已读
-    notificationRead({ commit }, reqData) {
+    notificationRead ({ commit }, reqData) {
         return Request.post("/notification/read", reqData)
             .then(res => {
-                return Promise.resolve(res);
+                return Promise.resolve(res)
             })
             .catch(err => {
-                return Promise.reject(err);
-            });
+                return Promise.reject(err)
+            })
     },
 
-    setDataListRome({ commit }, reqData) {
+    setDataListRome ({ commit }, reqData) {
         return Request.post("/notification/empty", reqData)
             .then(res => {
                 commit("SET_DATA_LIST", reqData)
                 commit("SET_NOTICE_BADGE")
-                return Promise.resolve(res);
+                return Promise.resolve(res)
             })
             .catch(err => {
-                return Promise.reject(err);
-            });
+                return Promise.reject(err)
+            })
 
     },
-    setDataListAdd({ commit }, reqData) {
+    setDataListAdd ({ commit }, reqData) {
         commit("SET_DATA_LIST_ADD", reqData)
     },
 }

@@ -5,10 +5,10 @@ const state = {
         isLoading: false,
         text: ''
     },
-    showMessage(config) {
+    showMessage (config) {
         return Message(config)
     },
-    confirm(message, title, config) {
+    confirm (message, title, config) {
         return MessageBox.confirm(message, title, {
             ...config,
             callback: function (action) {
@@ -26,7 +26,7 @@ const state = {
 }
 
 const mutations = {
-    showMessage(state, config) {
+    showMessage (state, config) {
         let tempConfig = { message: '提示信息', type: 'success', duration: 1500, customClass: 'el-message-tips' }
         if (isString(config)) {
             tempConfig.message = config
@@ -40,7 +40,7 @@ const mutations = {
         }
         state.showMessage(tempConfig)
     },
-    showLoading(state, config) {
+    showLoading (state, config) {
         let tempConfig = {}
         if (isString(config)) {
             tempConfig = { isLoading: true, text: config }
@@ -52,13 +52,13 @@ const mutations = {
             throw new Error('need string、boolean or plain object')
         }
         state.loading = tempConfig
-        if (!!window.ActiveXObject || "ActiveXObject" in window){
+        if (!!window.ActiveXObject || "ActiveXObject" in window) {
             setTimeout(function () {
-                state.loading = {isLoading:false,text:''}
-            }, 1000);
+                state.loading = { isLoading: false, text: '' }
+            }, 1000)
         }
     },
-    confirm(state, config) {
+    confirm (state, config) {
         let tempConfig = { type: 'warning' }
         let title = 'warning'
         let message = ''

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { pathNormalize,isEmpty } from '../utils/BaseUtil'
+import { pathNormalize, isEmpty } from '../utils/BaseUtil'
 
 import createLogger from 'vuex/dist/logger'
 
@@ -11,13 +11,13 @@ Vue.use(Vuex)
  * @see https://webpack.docschina.org/guides/dependency-management/
  */
 class StoreModule {
-    storeModuleContext() {
+    storeModuleContext () {
         return require.context('../modules', true, /\.store\.js$/)
     }
-    baseStoreModulesContext() {
+    baseStoreModulesContext () {
         return require.context('./modules', true, /\.js$/)
     }
-    getStoresModules() {
+    getStoresModules () {
         const context = this.storeModuleContext()
         const modules = {}
         context.keys().forEach(modulePath => {
@@ -37,7 +37,7 @@ class StoreModule {
         })
         return modules
     }
-    getBaseStoreModules() {
+    getBaseStoreModules () {
         const context = this.baseStoreModulesContext()
         const modules = {}
         context.keys().forEach(modulePath => {
@@ -47,16 +47,16 @@ class StoreModule {
         })
         return modules
     }
-    getModuleFilesByContext(context, prefixPath) {
+    getModuleFilesByContext (context, prefixPath) {
         const moduleFiles = context.keys().map(modulePath => pathNormalize(prefixPath + modulePath))
         return moduleFiles
     }
-    getModuleFiles() {
+    getModuleFiles () {
         const baseModuleFiles = this.getModuleFilesByContext(this.baseStoreModulesContext(), './modules/')
         const moduleFiles = this.getModuleFilesByContext(this.storeModuleContext(), '../modules/')
         return baseModuleFiles.concat(moduleFiles)
     }
-    getModules() {
+    getModules () {
         const baseModules = this.getBaseStoreModules()
         const modules = this.getStoresModules()
         Object.keys(modules).forEach(moduleName => {
@@ -91,8 +91,8 @@ if (module.hot) {
     module.hot.accept(storeModule.getModuleFiles(), () => {
         store.hotUpdate({
             modules: storeModule.getModules()
-        });
-    });
+        })
+    })
 }
 
 export default store

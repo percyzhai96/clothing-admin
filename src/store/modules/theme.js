@@ -1,6 +1,6 @@
-import { getTheme, setTheme } from "@/utils/theme";
+import { getTheme, setTheme } from "@/utils/theme"
 
-const Theme = parseInt(getTheme()) || 0;
+const Theme = parseInt(getTheme()) || 0
 
 const themeColor = [
     {
@@ -101,59 +101,59 @@ const themeColor = [
         container:
             "background-image: linear-gradient(to bottom right,#F83FBD, #CE1DFC);",
     },
-];
+]
 
 const greetings = [
     ["祝您新的一天工作愉快！",
-    "愿您的一天充满活力和快乐！",
-    "新的一天，新的开始，加油！",
-    "开始美好的一天吧！",
-    "我们期待为您提供愉快的体验!",
-    "愿您今天比昨天更美好！"],
+        "愿您的一天充满活力和快乐！",
+        "新的一天，新的开始，加油！",
+        "开始美好的一天吧！",
+        "我们期待为您提供愉快的体验!",
+        "愿您今天比昨天更美好！"],
     ["再忙也别忘了喝水",
-    "要来杯下午茶吗？",
-    "祝您有美好的午后！",
-    "希望我能帮到您!",
-    "休息一下吧！",
-    "祝您有个愉快的午休。"
+        "要来杯下午茶吗？",
+        "祝您有美好的午后！",
+        "希望我能帮到您!",
+        "休息一下吧！",
+        "祝您有个愉快的午休。"
     ],
     ["愿您的思维如同阳光一般开阔！",
-    "这里是您学习、进步的宝藏之地。",
-    "愿我们的服务能带给您愉悦的体验！",
-    "给您带来新的信息和机会！",
-    "休息一下吧！",
-    "让我们一起享受学习和成长的快乐！"
+        "这里是您学习、进步的宝藏之地。",
+        "愿我们的服务能带给您愉悦的体验！",
+        "给您带来新的信息和机会！",
+        "休息一下吧！",
+        "让我们一起享受学习和成长的快乐！"
     ],
     ["早点休息哦",
-    "放松一下吧！",
-    "期待明天的精彩！",
-    "我们期待为您提供愉快的体验",
-    "感谢自己今天的努力，愿今夜为您带来充足的活力和美好的梦境。",
-    "记得喝水，别太累哦！"],
+        "放松一下吧！",
+        "期待明天的精彩！",
+        "我们期待为您提供愉快的体验",
+        "感谢自己今天的努力，愿今夜为您带来充足的活力和美好的梦境。",
+        "记得喝水，别太累哦！"],
 ]
 
 export default {
     namespaced: true,
     state: {
-        PC:true,
-        leave:false,
+        PC: true,
+        leave: false,
         themeColor,
         greetings,
         themeIndex: Theme,
         showSidebar: true,
     },
     mutations: {
-        SET_THEME_INDEX(state, v) {
+        SET_THEME_INDEX (state, v) {
             state.themeIndex = v
             setTheme(v)
         },
-        SET_SHOW_SIDEBAR(state, v) {
+        SET_SHOW_SIDEBAR (state, v) {
             state.showSidebar = v
         },
-        SET_LEAVE(state,v){
+        SET_LEAVE (state, v) {
             state.leave = v
         },
-        SET_PC(state,v){
+        SET_PC (state, v) {
             state.PC = v
         },
     }

@@ -25,171 +25,51 @@
             </div>
           </div>
         </el-col>
-        <el-col :xs="24" :sm="24" :md="10" :lg="8" :xl="8">
-          <div class="index-head-centent-right">
-            <div class="index-head-centent-right-list">
-              <div class="index-head-centent-right-list-icon">
-                <svg-icon
-                  icon="daiban"
-                  style="color: #fd7f07; background: #fbeee1"
-                  class="index-head-centent-right-list-icon-is"
-                />
-                代办事项
-              </div>
-              <div class="index-head-centent-right-list-text">
-                3 &nbsp;&nbsp;/&nbsp;&nbsp; 26
-              </div>
-            </div>
-            <div class="index-head-centent-right-list">
-              <div class="index-head-centent-right-list-icon">
-                <svg-icon
-                  icon="github"
-                  style="color: #2294fc; background: #ddedfd"
-                  class="index-head-centent-right-list-icon-is"
-                />
-                开源项目
-              </div>
-              <div class="index-head-centent-right-list-text">7</div>
-            </div>
-            <div class="index-head-centent-right-list">
-              <div class="index-head-centent-right-list-icon">
-                <svg-icon
-                  icon="daiban"
-                  class="index-head-centent-right-list-icon-is"
-                />
-                代办事项
-              </div>
-              <div class="index-head-centent-right-list-text">
-                3 &nbsp;&nbsp;/&nbsp;&nbsp; 26
-              </div>
-            </div>
-          </div>
-        </el-col>
       </el-row>
     </div>
     <!-- 图标 -->
-    <div class="index-centent">
-      <el-row :gutter="20">
-        <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-          <!-- 项目 -->
-          <div class="grid-content">
-            <div class="index-centent-title">
-              <div class="index-centent-title-left">
-                <svg-icon icon="sort" class="index-centent-title-left-icon" />
-                我的项目
-              </div>
-              <div class="index-centent-title-right">全部项目</div>
-            </div>
-            <div class="index-centent-box">
-              <project-box />
-            </div>
-          </div>
-          <!-- 动态 -->
-          <div class="grid-content">
-            <div class="index-centent-title">
-              <div class="index-centent-title-left">
-                <svg-icon
-                  icon="dynamic"
-                  class="index-centent-title-left-icontwo"
-                />
-                动态
-              </div>
-              <div class="index-centent-title-right">全部动态</div>
-            </div>
-            <div class="index-centent-box">
-              <dynamic-box />
-            </div>
-          </div>
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-          <div class="grid-content">
-            <div class="index-centent-title">
-              <div class="index-centent-title-left">
-                <svg-icon
-                  icon="operating"
-                  class="index-centent-title-left-iconthree"
-                />
-                快捷操作
-              </div>
-              <div class="index-centent-title-right">
-                <!-- 全部动态 -->
-              </div>
-            </div>
-            <div class="index-centent-box">
-              <FastBox />
-            </div>
-          </div>
-          <div class="grid-content">
-            <div class="index-centent-title">
-              <div class="index-centent-title-left">
-                <svg-icon
-                  icon="group"
-                  class="index-centent-title-left-iconfour"
-                />
-                部门成员 (6)
-              </div>
-              <div class="index-centent-title-right">
-                <!-- 全部动态 -->
-              </div>
-            </div>
-            <div class="index-centent-box">
-              <ColleagueBox />
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
+    <div class="index-centent"></div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DynamicBox from "./component/dynamicBox";
-import ProjectBox from "./component/project";
-import FastBox from "./component/fast";
-import ColleagueBox from "./component/colleague";
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      welcome: "祝您新的一天工作愉快",
-    };
-  },
-  components: {
-    ColleagueBox,
-    FastBox,
-    ProjectBox,
-    DynamicBox,
+      welcome: '祝您新的一天工作愉快',
+    }
   },
   computed: {
-    ...mapState("user", ["userInfo"]),
-    ...mapState("theme", ["greetings", "PC"]),
+    ...mapState('user', ['userInfo']),
+    ...mapState('theme', ['greetings', 'PC']),
     getTimeState() {
       // 获取当前时间
-      let timeNow = new Date();
+      let timeNow = new Date()
       // 获取当前小时
-      let hours = timeNow.getHours();
+      let hours = timeNow.getHours()
       // 设置默认文字
-      let state = ``;
+      let state = ``
       // 随机下标
-      let index = Math.floor(Math.random() * 6);
+      let index = Math.floor(Math.random() * 6)
       // 判断当前时间段
       if (hours >= 0 && hours <= 10) {
-        state = `早上好!`;
-        this.welcome = this.greetings[0][index];
+        state = `早上好!`
+        this.welcome = this.greetings[0][index]
       } else if (hours > 10 && hours <= 14) {
-        state = `中午好!`;
-        this.welcome = this.greetings[1][index];
+        state = `中午好!`
+        this.welcome = this.greetings[1][index]
       } else if (hours > 14 && hours <= 18) {
-        state = `下午好!`;
-        this.welcome = this.greetings[2][index];
+        state = `下午好!`
+        this.welcome = this.greetings[2][index]
       } else if (hours > 18 && hours <= 24) {
-        state = `晚上好!`;
-        this.welcome = this.greetings[3][index];
+        state = `晚上好!`
+        this.welcome = this.greetings[3][index]
       }
-      return state;
+      return state
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@ const chalk = require('chalk')
 const path = require('path')
 const port = 8090
 
-function resolve(dir) {
+function resolve (dir) {
     return path.join(__dirname, dir)
 }
 
@@ -12,13 +12,13 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         port,
-        open:true,
+        open: true,
         proxy: {
             [process.env.VUE_APP_REQUEST_BASE_API]: {
-                target: process.env.VUE_APP_LOCAL_MOCK === 'true' ? `http://localhost:${port}/mock` : process.env.VUE_APP_PROXY_TARGET,
+                target: process.env.VUE_APP_PROXY_TARGET,
                 changeOrigin: true,
                 pathRewrite: {
-                    ['^' + process.env.VUE_APP_REQUEST_BASE_API]: process.env.VUE_APP_LOCAL_MOCK === 'true' ? '' : process.env.VUE_APP_REQUEST_BASE_API
+                    ['^' + process.env.VUE_APP_REQUEST_BASE_API]: process.env.VUE_APP_REQUEST_BASE_API
                 },
                 onProxyReq: function (proxyReq) {
                     console.info(chalk.bgBlue('Proxy Web Request'), chalk.green(proxyReq.path))
@@ -46,8 +46,8 @@ module.exports = {
     },
     configureWebpack: {
         externals: {
-          AMap: "AMap",
-          AMapUI: "AMapUI"
+            AMap: "AMap",
+            AMapUI: "AMapUI"
         }
-      }
+    }
 }
